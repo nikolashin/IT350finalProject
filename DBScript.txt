@@ -1,0 +1,6 @@
+create table Job (JobId varchar(20), HiringCompany varchar(20), WorkType varchar(20), StartDate datetime, Rate decimal, FuelSurcharge double, PRIMARY KEY(JobId));
+create table Site (Location varchar(20), JobId varchar(20), SiteName varchar(20), SiteType varchar(20), PRIMARY KEY(Location, JobId));
+create table Run (RunId varchar(20), JobId varchar(20), Truck varchar(20), Driver varchar(20), ToSite varchar(20), FromSite varchar(20), StartDate datetime, Quantity int, Mileage double, EndDate datetime, PRIMARY KEY(RunId));
+create table Driver (DriverId varchar(20), LicenceNo varchar(20), Name varchar(20), Insurance varchar(20), LicenseType varchar(20), Experience double, PayRate double, PRIMARY KEY(DriverId));
+create table Truck (TruckId varchar(20), LicenceDOT varchar(20), Mileage double, PlateNo varchar(20), PRIMARY KEY(TruckId));
+create table Trailer (TrailerId varchar(20), Registration varchar(20), PlateNo varchar(20), Capacity double, Mileage double, PRIMARY KEY(TrailerId));
