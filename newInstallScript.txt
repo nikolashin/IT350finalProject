@@ -1,0 +1,13 @@
+create table Job (tableId int NOT NULL AUTO_INCREMENT, JobId varchar(20), HiringCompany varchar(20), WorkType varchar(20), StartDate datetime, RateNum decimal, RateType varchar(2), FuelSurcharge double, Location varchar(20), PRIMARY KEY(tableId, JobId));
+
+create table Site (tableId int(11) NOT NULL AUTO_INCREMENT, Location varchar(20), SiteName varchar(20), SiteType varchar(20), PRIMARY KEY(tableId, Location));
+
+create table JobLoad (tableId int(11) NOT NULL AUTO_INCREMENT, TicketNum varchar(20), TicketOrder int, Quantity int, Description varchar(150), PRIMARY KEY(tableId, TicketNum, TicketOrder));
+
+create table Ticket (tableId int(11) NOT NULL AUTO_INCREMENT, JobId varchar(20), TicketNum varchar(20), PONum varchar(20), TruckNum varchar(20), DriverID varchar(20), Date datetime, ToLocation varchar(20), FromLocation varchar(20), WaterTicketNum varchar(10), TrailerNum varchar(20), PRIMARY KEY(tableId, TicketNum));
+
+create table Driver (tableId int(11) NOT NULL AUTO_INCREMENT, DriverLicNum varchar(20), Name varchar(20), Insurance varchar(20), LicenseType varchar(20), Experience double, PayRate double, PRIMARY KEY(tableId, DriverLicNum));
+
+create table Truck (tableId int(11) NOT NULL AUTO_INCREMENT, TruckNum varchar(20), LicenceDOT varchar(20), Mileage double, PlateNo varchar(20), Truck_Type varchar(20), PRIMARY KEY(tableId, TruckNum));
+
+create table Trailer (tableId int(11) NOT NULL AUTO_INCREMENT, TrailerNum varchar(20), Registration varchar(20), PlateNo varchar(20), Capacity double, Mileage double, PRIMARY KEY(tableId, TrailerNum));
