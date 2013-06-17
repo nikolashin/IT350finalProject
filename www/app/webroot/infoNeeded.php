@@ -6,21 +6,47 @@
   $db_handle = mysql_connect("localhost","george","Temp123!@#");
   $db_found = mysql_select_db($database);
 
-$fullName = $_GET['name'];
+$fullName = mysql_real_escape_string($_GET['name']);
+$fullName = str_replace('\\', '', $fullName);
 
-$payRateQuery = sprintf("SELECT PayRate FROM Driver WHERE Name=".$fullName);
+$startDate = mysql_real_escape_string($_GET['start']);
+$startDate = str_replace('\\', '', $startDate);
 
-$query = sprintf("SELECT JobId FROM Ticket WHERE DriverID=(SELECT DriverLicNum FROM Driver WHERE Name=".$fullName.")");
+$endDate = mysql_real_escape_string($_GET['end']);
+$endDate = str_replace('\\', '', $endDate);
 
-$result = mysql_query($query);
+$startDate2=date($startDate);
+
+$endDate2=date($endDate);
+
+//$payRateQuery = sprintf("SELECT PayRate FROM Driver WHERE Name=".$fullName);
+//$payResult = mysql_query($payRateQuery);
+
+$query = 'SELECT * FROM Driver
+                  LEFT JOIN Ticket ON Driver.DriverLicNum=Ticket.DriverID
+                  LEFT JOIN JobLoad ON Ticket.TicketNum=JobLoad.TicketNum
+                  LEFT JOIN Job ON Ticket.JobId=Job.JobId
+                  WHERE Driver.Name='.$fullName.'
+                  AND Job.StartDate > '.$startDate2.'
+                  AND Job.StartDate < '.$endDate2;
 
 echo "<p style='color:#000000;font-weight:bold;'>";
 
-	while ($row = mysql_fetch_assoc($result))
+//$rowPayRate = mysql_fetch_assoc($payResult);
+//mysql_free_result($payRateQuery);
+
+
+$result = mysql_query($query);
+
+$total=0;
+
+        while ($row = mysql_fetch_assoc($result))
         {
-            echo $row['JobId'];
-            echo "<br>";
-	}
+          $total+=($row['Quantity']*$row['PayRate']);
+        }
+
+
+echo "$".$total;
 
 echo "</p>";
 
